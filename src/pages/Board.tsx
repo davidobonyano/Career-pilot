@@ -1,21 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext } from "@hello-pangea/dnd";
 import type { DropResult } from "@hello-pangea/dnd";
 import BoardColumn from "../components/BoardColumn";
 import AddJobModal from "../components/AddJobModal";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import type { ColumnJobs, NewJobForm, DeleteTarget } from "../types/jobs.types";
+import { saveJobs, loadJobs } from "../features/jobsStorage";
 
-// Temporary inline type – we will move this to jobs.types.ts
-interface Job {
-  id: string;
-  title: string;
-  company: string;
-}
-
-type ColumnJobs = {
-  [key: string]: Job[];
-};
-
-const initialData: ColumnJobs = {
+const defaultData: ColumnJobs = {
   wishlist: [
     { id: "1", title: "Frontend Developer", company: "TechCorp" },
     { id: "2", title: "React Engineer", company: "StartupX" },
@@ -25,9 +17,27 @@ const initialData: ColumnJobs = {
 };
 
 const Board: React.FC = () => {
-  const [columns, setColumns] = useState<ColumnJobs>(initialData);
+  const [columns, setColumns] = useState<ColumnJobs>(defaultData);
   const [showModal, setShowModal] = useState(false);
-  const [newJob, setNewJob] = useState({ title: "", company: "", column: "wishlist" });
+  const [newJob, setNewJob] = useState<NewJobForm>({
+    title: "",
+    company: "",
+    column: "wishlist",
+  });
+
+  const [deleteTarget, setDeleteTarget] = useState<DeleteTarget | null>(null);
+
+  // Load data on mount
+  useEffect(() => {
+    loadJobs().then((data) => {
+      if (data) setColumns(data);
+    });
+  }, []);
+
+  // Save data whenever columns change
+  useEffect(() => {
+    saveJobs(columns);
+  }, [columns]);
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
@@ -63,23 +73,30 @@ const Board: React.FC = () => {
     setNewJob({ title: "", company: "", column: "wishlist" });
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-br from-[#EAF9E7] via-[#C0E6BA] to-[#EAF9E7] text-[#013237] font-sans flex flex-col">
-      {/* Navbar */}
-      <header className="bg-[#4CA771] text-white px-6 py-4 flex justify-between items-center shadow-lg">
-        <h1 className="text-2xl font-bold tracking-wide">CareerPilot</h1>
-        <nav className="flex gap-6 text-sm font-medium">
-          <a href="/board" className="hover:underline underline-offset-4">Board</a>
-          <a href="/contacts" className="hover:underline underline-offset-4">Contacts</a>
-          <a href="/tasks" className="hover:underline underline-offset-4">Tasks</a>
-        </nav>
-      </header>
+  const handleDeleteJob = (colId: string, jobId: string) => {
+    setDeleteTarget({ colId, jobId });
+  };
 
-      {/* Board Columns */}
+  const confirmDelete = () => {
+    if (!deleteTarget) return;
+    const { colId, jobId } = deleteTarget;
+    const updatedColumn = columns[colId].filter((job) => job.id !== jobId);
+    setColumns({ ...columns, [colId]: updatedColumn });
+    setDeleteTarget(null);
+  };
+
+  return (
+    <div className="flex flex-col flex-1">
+      {/* Kanban Columns */}
       <DragDropContext onDragEnd={onDragEnd}>
         <main className="flex-1 p-6 grid grid-cols-1 md:grid-cols-3 gap-8">
           {Object.entries(columns).map(([colId, jobs]) => (
-            <BoardColumn key={colId} colId={colId} jobs={jobs} />
+            <BoardColumn
+              key={colId}
+              colId={colId}
+              jobs={jobs}
+              onDeleteJob={handleDeleteJob}
+            />
           ))}
         </main>
       </DragDropContext>
@@ -99,6 +116,13 @@ const Board: React.FC = () => {
         setNewJob={setNewJob}
         onClose={() => setShowModal(false)}
         onAdd={handleAddJob}
+      />
+
+      {/* Confirm Delete Modal */}
+      <ConfirmDeleteModal
+        show={!!deleteTarget}
+        onCancel={() => setDeleteTarget(null)}
+        onConfirm={confirmDelete}
       />
     </div>
   );
