@@ -3,16 +3,17 @@ import Intro from "./pages/Intro";
 import Board from "./pages/Board";
 import ErrorElement from "./components/ErrorElement";
 import RootLayout from "./layout/RootLayout";
+import NotFound from "./pages/NotFound"; // NEW
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    errorElement: <ErrorElement />, // error inside layout
+    errorElement: <ErrorElement />,
     children: [
       { index: true, element: <Intro /> },
       { path: "board", element: <Board /> },
-      // other pages like contacts, tasks...
+      { path: "*", element: <NotFound /> }, // NEW
     ],
   },
 ]);
