@@ -4,7 +4,7 @@ import type { DropResult } from "@hello-pangea/dnd";
 import BoardColumn from "../components/BoardColumn";
 import AddJobModal from "../components/AddJobModal";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
-import type { ColumnJobs, NewJobForm, DeleteTarget } from "../types/jobs.types";
+import type { ColumnJobs, NewJobForm, DeleteTarget } from "../types/jobstypes";
 import { saveJobs, loadJobs } from "../features/jobsStorage";
 
 const defaultData: ColumnJobs = {

@@ -1,6 +1,6 @@
-// src/features/jobs/services/jobsStorage.ts
+
 import localforage from "localforage";
-import type { ColumnJobs } from "../../../types/jobs.types";
+import type { ColumnJobs } from "../types/jobstypes";
 
 const JOBS_KEY = "careerpilot_jobs";
 

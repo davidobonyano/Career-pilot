@@ -1,5 +1,5 @@
 import React from "react";
-import type { NewJobForm } from "../types/jobs.types";
+import type { NewJobForm } from "../types/jobstypes";
 
 interface AddJobModalProps {
   show: boolean;

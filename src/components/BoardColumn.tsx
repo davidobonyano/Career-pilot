@@ -3,7 +3,7 @@ import { Droppable, Draggable } from "@hello-pangea/dnd";
 import { AnimatePresence } from "framer-motion";
 import JobCard from "./JobCard";
 import EmptyState from "./EmptyState";
-import type { Job } from "../types/jobs.types";
+import type { Job } from "../types/jobstypes";
 
 interface BoardColumnProps {
   colId: string;
