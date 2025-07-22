@@ -1,69 +1,90 @@
-# React + TypeScript + Vite
+# 🚀 CareerPilot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![CareerPilot Banner](https://github.com/user-attachments/assets/ef04cb5b-4111-40b9-99c2-2cffca04a83f
+)  
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-4.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-4.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**CareerPilot** is a sleek job tracking and career management web app built with **React, TypeScript, and Tailwind CSS**.  
+It helps you keep track of **job applications, contacts, and tasks** in one organized place.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## ✨ Features
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Job Board (Kanban Style)**  
+  Organize job applications by stages: *Applied*, *Interviewing*, *Offer*, *Rejected*.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Contact Manager**  
+  Add, edit, and delete professional contacts with details like company, role, and notes.
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Offline Storage with LocalForage**  
+  All data persists in your browser via **IndexedDB**.
+
+- **Framer Motion Animations**  
+  Smooth transitions and animations for modern UI/UX.
+
+- **Responsive Design**  
+  Works flawlessly across devices (desktop, tablet, mobile).
+
+---
+
+## 🛠️ Tech Stack
+
+- **React 18** + **TypeScript**
+- **React Router** (with `createBrowserRouter`)
+- **Tailwind CSS** (custom theme for CareerPilot)
+- **Framer Motion** (animations)
+- **LocalForage** (offline data persistence)
+- **UUID** (unique IDs for contacts/jobs)
+- **Vite** (lightning-fast dev environment)
+
+---
+
+## 📂 Project Structure
+
+careerpilot/
+├─ src/
+│ ├─  # App-level setup (router, providers)
+│ ├─ features/ # Feature modules (jobs, contacts, tasks)
+│ ├─ components/ # Shared UI (Button, Modal, Input, etc.)
+│ ├─ pages/ # Page components (Intro, Board, Contacts)
+│ ├─ layouts/ # Layout components (RootLayout)
+│ ├─ utils/ # Hooks & helpers (useContacts)
+│ ├─ types/ # TypeScript interfaces
+│ └─ assets/ # Icons & images
+├─ public/
+├─ index.html
+├─ tailwind.config.js
+├─ tsconfig.json
+├─ vite.config.ts
+└─ package.json
+
+
+---
+
+## 🚀 Getting Started
+
+### **1. Clone the repository**
+```bash
+git clone https://github.com/your-username/careerpilot.git
+cd careerpilot
+npm install
+npm run dev
+
+## 🤝 Contributing
+
+Contributions are always welcome!
+Fork this repository and create a pull request for any new feature or improvement.
+
+
+📜 License
+This project is licensed under the MIT License – you’re free to use and modify it.
