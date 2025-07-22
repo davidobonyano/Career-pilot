@@ -4,7 +4,7 @@ import ContactCard from "./ContactCard";
 interface ContactListProps {
   contacts: Contact[];
   onDelete: (id: string) => void;
-  onEdit: (id: string, updates: Partial<Contact>) => void;
+  onEdit: (id: string) => void; // changed signature
 }
 
 export default function ContactList({ contacts, onDelete, onEdit }: ContactListProps) {
@@ -19,7 +19,7 @@ export default function ContactList({ contacts, onDelete, onEdit }: ContactListP
           key={contact.id}
           contact={contact}
           onDelete={onDelete}
-          onEdit={(id) => onEdit(id, {})} // You can later pass real updates
+          onEdit={onEdit} // pass directly
         />
       ))}
     </div>
